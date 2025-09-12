@@ -1,0 +1,8 @@
+.git
+.gitignore
+.env
+.eslintcache
+.vscode
+node_modules
+dist
+test
