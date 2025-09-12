@@ -18,7 +18,7 @@ WORKDIR /app
 USER node
 
 COPY package.json yarn.lock ./
-RUN yarn install --production --frozen-lockfile
+RUN yarn install --production
 
 COPY --from=builder --chown=node:node /app/dist ./dist
 
