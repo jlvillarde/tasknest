@@ -4,8 +4,13 @@ WORKDIR /app
 
 COPY package.json yarn.lock ./
 
-RUN corepack enable
-RUN yarn install
+# Enable corepack and install dependencies
+RUN corepack enable && \
+    yarn install --frozen-lockfile && \
+    yarn cache clean
+
+# Remove unnecessary files
+RUN rm -rf /tmp/* /var/cache/apk/* /root/.yarn
 
 EXPOSE 3000
 

@@ -4,9 +4,12 @@ WORKDIR /app
 
 COPY package.json yarn.lock ./
 
-RUN corepack enable
-RUN yarn install
+# Combine RUN commands to reduce layers and clean up in same layer
+RUN corepack enable && \
+    yarn install --frozen-lockfile && \
+    yarn cache clean && \
+    rm -rf /tmp/* /var/cache/apk/* /root/.yarn /root/.cache
 
 EXPOSE 5173
 
-CMD ["yarn", "run", "dev"]
+CMD ["yarn", "dev"]
