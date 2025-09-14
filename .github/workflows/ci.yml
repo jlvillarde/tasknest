@@ -1,4 +1,4 @@
-name: CI
+name: CI-CD
 
 on:
   push:
@@ -22,3 +22,15 @@ jobs:
 
       - name: Build frontend Docker image
         run: docker build -t my-frontend ./frontend
+
+  cd:
+    needs: [backend]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy backend on Render
+        run: |
+          curl -X POST \
+            -H "Accept: application/json" \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -d '' \
+            https://api.render.com/v1/services/${{ secrets.RENDER_BACKEND_ID }}/deploys

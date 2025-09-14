@@ -7,5 +7,8 @@ export default defineConfig({
   server: {
     host: '0.0.0.0', // bind to all interfaces
     port: 5173,      // optional, default dev port
+    proxy: {
+      '/api': 'http://localhost:3000'
+    }
   },
 })
